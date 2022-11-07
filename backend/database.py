@@ -5,10 +5,18 @@ from sqlalchemy.orm import sessionmaker
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import time
+import os
 
-# SQLALCHEMY_DATABASE_URL =  f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/{settings.database_name}'
+DATABASE_USERNAME = os.environ.get("DATABASE_USERNAME")
+DATABASE_PASSWORD = os.environ.get("DATABASE_PASSWORD")
+DATABASE_HOSTNAME = os.environ.get("DATABASE_HOSTNAME")
+DATABASE_PORT = os.environ.get("DATABASE_PORT")
+DATABASE_NAME = os.environ.get("DATABASE_NAME")
 
-engine = create_engine("postgres://todo_ahd0_user:djsd6AnKzsd6F3xvM6pWaEbfiWqOK91r@dpg-cdk2qrien0honmehmvo0-a/todo_ahd0")
+
+SQLALCHEMY_DATABASE_URL =  f'postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOSTNAME}:{DATABASE_PORT}/{DATABASE_NAME}'
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
